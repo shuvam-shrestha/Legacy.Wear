@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import CountryCollections from "@/components/CountryCollections";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import AIPersonalization from "@/components/AIPersonalization";
+import LiveStreaming from "@/components/LiveStreaming";
 import Sustainability from "@/components/Sustainability";
 import Footer from "@/components/Footer";
 
@@ -15,6 +16,7 @@ const Index = () => {
         <CountryCollections />
         <FeaturedProducts />
         <AIPersonalization />
+        <LiveStreaming />
         <Sustainability />
       </main>
       <Footer />

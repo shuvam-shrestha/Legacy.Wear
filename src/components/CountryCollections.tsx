@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent } from "@/components/ui/card";
 import japanImg from "@/assets/collection-japan.jpg";
 import indiaImg from "@/assets/collection-india.jpg";
@@ -32,6 +33,8 @@ const collections = [
 ];
 
 const CountryCollections = () => {
+  const navigate = useNavigate();
+  
   return (
     <section id="collections" className="py-20 bg-gradient-warm">
       <div className="container mx-auto px-4">
@@ -50,6 +53,7 @@ const CountryCollections = () => {
             <Card
               key={collection.country}
               className="group cursor-pointer overflow-hidden border-none shadow-card hover:shadow-hover transition-all duration-300"
+              onClick={() => navigate('/products')}
             >
               <CardContent className="p-0">
                 <div className="relative overflow-hidden aspect-square">
