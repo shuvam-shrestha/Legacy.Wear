@@ -14,9 +14,9 @@ const Index = () => {
       <main>
         <Hero />
         <CountryCollections />
-        <LiveStreaming />
         <FeaturedProducts />
         <AIPersonalization />
+        <LiveStreaming />
         <Sustainability />
       </main>
       <Footer />
