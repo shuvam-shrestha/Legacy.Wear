@@ -27,10 +27,14 @@ const Navigation = () => {
           {/* Logo */}
           <div 
             onClick={() => navigate('/')} 
-            className="flex items-center space-x-2 cursor-pointer"
+            className="flex items-center cursor-pointer"
           >
-            <Globe className="h-6 w-6 text-primary" />
-            <span className="font-serif text-2xl font-bold text-primary">Legacy Wear</span>
+            <span className="font-sans text-xl md:text-2xl font-bold tracking-tight">
+              LEGACY<span className="inline-block relative ml-1">
+                <span className="relative z-10 text-background px-2 md:px-3 py-0.5 md:py-1 text-sm md:text-lg">WEAR</span>
+                <span className="absolute inset-0 bg-primary rounded-full" />
+              </span>
+            </span>
           </div>
 
           {/* Desktop Navigation */}
