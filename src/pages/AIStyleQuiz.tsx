@@ -34,9 +34,10 @@ const questions = [
     id: 'region',
     question: 'Which region\'s fashion interests you most?',
     options: [
-      { value: 'asia', label: 'Asia (Japan, India, Thailand)' },
-      { value: 'africa', label: 'Africa (Ghana, Nigeria, Morocco)' },
-      { value: 'middleeast', label: 'Middle East & North Africa' },
+      { value: 'southasia', label: 'South Asia (Nepal, India, Bangladesh)' },
+      { value: 'eastasia', label: 'East Asia (China, Japan, South Korea)' },
+      { value: 'southeast', label: 'Southeast Asia (Thailand)' },
+      { value: 'russia', label: 'Russia' },
       { value: 'any', label: 'I\'m open to all cultures' },
     ],
   },
