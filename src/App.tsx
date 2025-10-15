@@ -11,6 +11,8 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import About from "./pages/About";
 import AIStyleQuiz from "./pages/AIStyleQuiz";
+import Contact from "./pages/Contact";
+import SustainabilityPage from "./pages/SustainabilityPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +32,8 @@ const App = () => (
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/about" element={<About />} />
             <Route path="/ai-quiz" element={<AIStyleQuiz />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/sustainability" element={<SustainabilityPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

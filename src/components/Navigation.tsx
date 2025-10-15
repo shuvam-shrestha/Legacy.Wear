@@ -48,10 +48,16 @@ const Navigation = () => {
               About
             </button>
             <button 
-              onClick={() => navigate('/#sustainability')}
+              onClick={() => navigate('/sustainability')}
               className="text-sm font-medium hover:text-primary transition-colors"
             >
               Sustainability
+            </button>
+            <button 
+              onClick={() => navigate('/contact')}
+              className="text-sm font-medium hover:text-primary transition-colors"
+            >
+              Contact
             </button>
           </div>
 
@@ -112,10 +118,16 @@ const Navigation = () => {
                     About
                   </button>
                   <button 
-                    onClick={() => navigate('/#sustainability')}
+                    onClick={() => navigate('/sustainability')}
                     className="text-lg font-medium hover:text-primary transition-colors text-left"
                   >
                     Sustainability
+                  </button>
+                  <button 
+                    onClick={() => navigate('/contact')}
+                    className="text-lg font-medium hover:text-primary transition-colors text-left"
+                  >
+                    Contact
                   </button>
                 </div>
               </SheetContent>

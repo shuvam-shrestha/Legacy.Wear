@@ -7,28 +7,52 @@ import africaImg from "@/assets/collection-africa.jpg";
 
 const collections = [
   {
-    country: "Japan",
-    description: "Elegant Kimonos & Traditional Wear",
+    country: "Nepal",
+    description: "Himalayan Heritage & Pashmina",
+    image: indiaImg,
+    items: "40+ items",
+  },
+  {
+    country: "Thailand",
+    description: "Thai Silk & Traditional Attire",
     image: japanImg,
-    items: "120+ items",
+    items: "40+ items",
   },
   {
     country: "India",
     description: "Sarees, Sherwanis & More",
     image: indiaImg,
-    items: "200+ items",
+    items: "40+ items",
   },
   {
-    country: "Morocco",
-    description: "Luxurious Kaftans & Djellabas",
-    image: moroccoImg,
-    items: "85+ items",
-  },
-  {
-    country: "Africa",
-    description: "Vibrant Ankara & Traditional Prints",
+    country: "Bangladesh",
+    description: "Jamdani & Kantha Artistry",
     image: africaImg,
-    items: "150+ items",
+    items: "40+ items",
+  },
+  {
+    country: "Russia",
+    description: "Folk Costumes & Shawls",
+    image: moroccoImg,
+    items: "40+ items",
+  },
+  {
+    country: "China",
+    description: "Qipao, Hanfu & Tang Suits",
+    image: japanImg,
+    items: "40+ items",
+  },
+  {
+    country: "Japan",
+    description: "Elegant Kimonos & Yukatas",
+    image: japanImg,
+    items: "40+ items",
+  },
+  {
+    country: "South Korea",
+    description: "Traditional & Modern Hanbok",
+    image: indiaImg,
+    items: "40+ items",
   },
 ];
 
@@ -48,7 +72,7 @@ const CountryCollections = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
           {collections.map((collection) => (
             <Card
               key={collection.country}
