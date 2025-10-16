@@ -7,12 +7,20 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { toast } from '@/hooks/use-toast';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { CheckCircle2 } from 'lucide-react';
 
 const Checkout = () => {
   const navigate = useNavigate();
   const { cart, getCartTotal, clearCart } = useCart();
   const [processing, setProcessing] = useState(false);
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,13 +29,13 @@ const Checkout = () => {
     // Simulate payment processing
     await new Promise(resolve => setTimeout(resolve, 2000));
     
-    toast({
-      title: "Order Placed Successfully!",
-      description: "Thank you for your purchase. You'll receive a confirmation email shortly.",
-    });
-    
     clearCart();
     setProcessing(false);
+    setShowSuccessDialog(true);
+  };
+
+  const handleSuccessDialogClose = () => {
+    setShowSuccessDialog(false);
     navigate('/');
   };
 
@@ -176,6 +184,28 @@ const Checkout = () => {
         </div>
       </main>
       <Footer />
+
+      <Dialog open={showSuccessDialog} onOpenChange={handleSuccessDialogClose}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <div className="flex justify-center mb-4">
+              <div className="rounded-full bg-accent/20 p-3 animate-scale-in">
+                <CheckCircle2 className="h-12 w-12 text-accent" />
+              </div>
+            </div>
+            <DialogTitle className="text-center text-2xl font-serif">
+              Order Placed Successfully!
+            </DialogTitle>
+            <DialogDescription className="text-center">
+              Thank you for your purchase. You'll receive a confirmation email shortly
+              with your order details and tracking information.
+            </DialogDescription>
+          </DialogHeader>
+          <Button onClick={handleSuccessDialogClose} className="w-full mt-4">
+            Continue Shopping
+          </Button>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

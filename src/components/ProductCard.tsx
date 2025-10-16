@@ -14,7 +14,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const { addToCart } = useCart();
 
   return (
-    <Card className="group cursor-pointer overflow-hidden border-none shadow-card hover:shadow-hover transition-all duration-300">
+    <Card className="group cursor-pointer overflow-hidden border-none shadow-card hover:shadow-hover transition-all duration-300 animate-fade-in hover-scale">
       <CardContent className="p-0">
         <div 
           className="relative overflow-hidden aspect-[3/4]"
