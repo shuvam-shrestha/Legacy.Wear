@@ -28,12 +28,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <Button
             size="icon"
             variant="ghost"
-            className="absolute top-4 right-4 bg-background/80 backdrop-blur hover:bg-background"
+            className="absolute top-4 right-4 bg-background/80 backdrop-blur hover:bg-background transition-all duration-300 hover:scale-110"
             onClick={(e) => {
               e.stopPropagation();
             }}
           >
-            <Heart className="h-5 w-5" />
+            <Heart className="h-5 w-5 transition-all duration-300 hover:fill-primary hover:text-primary" />
           </Button>
           {product.badge && (
             <Badge className="absolute top-4 left-4 bg-accent text-accent-foreground">
@@ -48,6 +48,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             <p className="text-2xl font-bold text-primary">${product.price}</p>
             <Button
               size="sm"
+              className="transition-all duration-300 hover:scale-105"
               onClick={(e) => {
                 e.stopPropagation();
                 addToCart(product);
