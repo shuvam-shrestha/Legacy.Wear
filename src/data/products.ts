@@ -1,3 +1,36 @@
+import nepalDhakaTopi from '@/assets/products/nepal-dhaka-topi.jpg';
+import nepalGurungDress from '@/assets/products/nepal-gurung-dress.jpg';
+import nepalPashmina from '@/assets/products/nepal-pashmina.jpg';
+import nepalHempKurta from '@/assets/products/nepal-hemp-kurta.jpg';
+import thailandChakri from '@/assets/products/thailand-chakri.jpg';
+import thailandChutThai from '@/assets/products/thailand-chut-thai.jpg';
+import thailandFishermanPants from '@/assets/products/thailand-fisherman-pants.jpg';
+import thailandMudmeeScarf from '@/assets/products/thailand-mudmee-scarf.jpg';
+import indiaBaranasiSaree from '@/assets/products/india-banarasi-saree.jpg';
+import indiaSherwani from '@/assets/products/india-sherwani.jpg';
+import indiaKhadiKurta from '@/assets/products/india-khadi-kurta.jpg';
+import indiaBlockPrint from '@/assets/products/india-block-print.jpg';
+import bangladeshJamdani from '@/assets/products/bangladesh-jamdani.jpg';
+import bangladeshPunjabi from '@/assets/products/bangladesh-punjabi.jpg';
+import bangladeshKantha from '@/assets/products/bangladesh-kantha.jpg';
+import bangladeshTantSaree from '@/assets/products/bangladesh-tant-saree.jpg';
+import russiaSarafan from '@/assets/products/russia-sarafan.jpg';
+import russiaKaftan from '@/assets/products/russia-kaftan.jpg';
+import russiaPosadShawl from '@/assets/products/russia-posad-shawl.jpg';
+import russiaRubakha from '@/assets/products/russia-rubakha.jpg';
+import chinaQipao from '@/assets/products/china-qipao.jpg';
+import chinaTangSuit from '@/assets/products/china-tang-suit.jpg';
+import chinaHanfu from '@/assets/products/china-hanfu.jpg';
+import chinaTaiChi from '@/assets/products/china-taichi.jpg';
+import japanKimonoSakura from '@/assets/products/japan-kimono-sakura.jpg';
+import japanHakama from '@/assets/products/japan-hakama.jpg';
+import japanYukata from '@/assets/products/japan-yukata.jpg';
+import japanHaori from '@/assets/products/japan-haori.jpg';
+import koreaHanbokRoyal from '@/assets/products/korea-hanbok-royal.jpg';
+import koreaModernHanbok from '@/assets/products/korea-modern-hanbok.jpg';
+import koreaJeogori from '@/assets/products/korea-jeogori.jpg';
+import koreaDurumagi from '@/assets/products/korea-durumagi.jpg';
+
 export const allProducts = [
   // Nepal - Traditional Wear
   {
@@ -5,7 +38,7 @@ export const allProducts = [
     name: "Dhaka Topi & Daura Suruwal Set",
     country: "Nepal",
     price: 189,
-    image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&q=80",
+    image: nepalDhakaTopi,
     badge: "Artisan Verified",
     description: "Traditional Nepali men's outfit with handwoven Dhaka fabric topi. Crafted by artisans in Kathmandu.",
     category: "Traditional Wear",
@@ -15,7 +48,7 @@ export const allProducts = [
     name: "Gurung Traditional Dress",
     country: "Nepal",
     price: 215,
-    image: "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=800&q=80",
+    image: nepalGurungDress,
     badge: "Fair Trade",
     description: "Elegant Gurung ethnic dress with intricate embroidery. Preserving indigenous Himalayan heritage.",
     category: "Traditional Wear",
@@ -27,7 +60,7 @@ export const allProducts = [
     name: "Nepali Pashmina Shawl",
     country: "Nepal",
     price: 165,
-    image: "https://images.unsplash.com/photo-1583391265003-37c0c1a6ba4e?w=800&q=80",
+    image: nepalPashmina,
     badge: "Eco-Friendly",
     description: "Luxurious handwoven pashmina from Himalayan goats. Sustainable and incredibly soft.",
     category: "Casual Wear",
@@ -37,7 +70,7 @@ export const allProducts = [
     name: "Hemp Kurta",
     country: "Nepal",
     price: 125,
-    image: "https://images.unsplash.com/photo-1617627143750-d86bc393c562?w=800&q=80",
+    image: nepalHempKurta,
     badge: "Eco-Friendly",
     description: "Comfortable kurta made from organic Himalayan hemp. Breathable and sustainable.",
     category: "Casual Wear",
@@ -49,7 +82,7 @@ export const allProducts = [
     name: "Thai Silk Chakri Set",
     country: "Thailand",
     price: 295,
-    image: "https://images.unsplash.com/photo-1622122201714-77da0ca8e5d2?w=800&q=80",
+    image: thailandChakri,
     badge: "Artisan Verified",
     description: "Exquisite Thai silk traditional formal wear. Handwoven using ancient royal techniques.",
     category: "Traditional Wear",
@@ -59,7 +92,7 @@ export const allProducts = [
     name: "Chut Thai Dress",
     country: "Thailand",
     price: 265,
-    image: "https://images.unsplash.com/photo-1583391265003-17a8a5eb1f1e?w=800&q=80",
+    image: thailandChutThai,
     badge: "Fair Trade",
     description: "Elegant Thai national dress with golden patterns. Perfect for special occasions.",
     category: "Traditional Wear",
@@ -71,7 +104,7 @@ export const allProducts = [
     name: "Fisherman Pants",
     country: "Thailand",
     price: 75,
-    image: "https://images.unsplash.com/photo-1583420188544-06ca9f786b9c?w=800&q=80",
+    image: thailandFishermanPants,
     badge: "Eco-Friendly",
     description: "Comfortable Thai fisherman pants made from organic cotton. Perfect for travel.",
     category: "Casual Wear",
@@ -81,7 +114,7 @@ export const allProducts = [
     name: "Mudmee Silk Scarf",
     country: "Thailand",
     price: 95,
-    image: "https://images.unsplash.com/photo-1574180566232-aaad1b5b8450?w=800&q=80",
+    image: thailandMudmeeScarf,
     badge: "Artisan Verified",
     description: "Traditional tie-dye silk scarf from Northeast Thailand. Unique patterns in every piece.",
     category: "Casual Wear",
@@ -93,7 +126,7 @@ export const allProducts = [
     name: "Banarasi Silk Saree",
     country: "India",
     price: 345,
-    image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&q=80",
+    image: indiaBaranasiSaree,
     badge: "Fair Trade",
     description: "Luxurious Banarasi silk saree with intricate gold zari work. Handwoven in Varanasi.",
     category: "Traditional Wear",
@@ -103,7 +136,7 @@ export const allProducts = [
     name: "Embroidered Sherwani",
     country: "India",
     price: 425,
-    image: "https://images.unsplash.com/photo-1617627143750-d86bc393c562?w=800&q=80",
+    image: indiaSherwani,
     badge: "Artisan Verified",
     description: "Regal sherwani with intricate embroidery. Perfect for weddings and celebrations.",
     category: "Traditional Wear",
@@ -115,7 +148,7 @@ export const allProducts = [
     name: "Khadi Cotton Kurta",
     country: "India",
     price: 89,
-    image: "https://images.unsplash.com/photo-1583391265003-37c0c1a6ba4e?w=800&q=80",
+    image: indiaKhadiKurta,
     badge: "Eco-Friendly",
     description: "Hand-spun khadi cotton kurta. Supporting traditional Indian spinning heritage.",
     category: "Casual Wear",
@@ -125,7 +158,7 @@ export const allProducts = [
     name: "Block Print Palazzo Set",
     country: "India",
     price: 135,
-    image: "https://images.unsplash.com/photo-1622122201714-77da0ca8e5d2?w=800&q=80",
+    image: indiaBlockPrint,
     badge: "Eco-Friendly",
     description: "Beautiful hand block-printed outfit with natural dyes from Rajasthan.",
     category: "Casual Wear",
@@ -137,7 +170,7 @@ export const allProducts = [
     name: "Jamdani Saree",
     country: "Bangladesh",
     price: 385,
-    image: "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=800&q=80",
+    image: bangladeshJamdani,
     badge: "Artisan Verified",
     description: "UNESCO-recognized Jamdani weaving technique. Each piece takes weeks to create.",
     category: "Traditional Wear",
@@ -147,7 +180,7 @@ export const allProducts = [
     name: "Punjabi-Pajama Set",
     country: "Bangladesh",
     price: 145,
-    image: "https://images.unsplash.com/photo-1583420188544-06ca9f786b9c?w=800&q=80",
+    image: bangladeshPunjabi,
     badge: "Fair Trade",
     description: "Traditional Bangladeshi men's formal wear with fine embroidery details.",
     category: "Traditional Wear",
@@ -159,7 +192,7 @@ export const allProducts = [
     name: "Nakshi Kantha Shawl",
     country: "Bangladesh",
     price: 95,
-    image: "https://images.unsplash.com/photo-1574180566232-aaad1b5b8450?w=800&q=80",
+    image: bangladeshKantha,
     badge: "Eco-Friendly",
     description: "Hand-embroidered kantha stitch shawl. Each piece tells a unique story.",
     category: "Casual Wear",
@@ -169,7 +202,7 @@ export const allProducts = [
     name: "Tant Cotton Saree",
     country: "Bangladesh",
     price: 115,
-    image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&q=80",
+    image: bangladeshTantSaree,
     badge: "Eco-Friendly",
     description: "Lightweight handloom cotton saree. Perfect for tropical climates.",
     category: "Casual Wear",
@@ -181,7 +214,7 @@ export const allProducts = [
     name: "Sarafan Dress with Kokoshnik",
     country: "Russia",
     price: 315,
-    image: "https://images.unsplash.com/photo-1583391265003-17a8a5eb1f1e?w=800&q=80",
+    image: russiaSarafan,
     badge: "Artisan Verified",
     description: "Traditional Russian folk costume with ornate headdress. Rich cultural heritage.",
     category: "Traditional Wear",
@@ -191,7 +224,7 @@ export const allProducts = [
     name: "Cossack Kaftan",
     country: "Russia",
     price: 285,
-    image: "https://images.unsplash.com/photo-1617627143750-d86bc393c562?w=800&q=80",
+    image: russiaKaftan,
     badge: "Fair Trade",
     description: "Authentic Cossack-style kaftan with traditional embroidery patterns.",
     category: "Traditional Wear",
@@ -203,7 +236,7 @@ export const allProducts = [
     name: "Pavlovo Posad Shawl",
     country: "Russia",
     price: 175,
-    image: "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=800&q=80",
+    image: russiaPosadShawl,
     badge: "Artisan Verified",
     description: "Iconic Russian wool shawl with floral patterns. Warm and elegant.",
     category: "Casual Wear",
@@ -213,7 +246,7 @@ export const allProducts = [
     name: "Linen Rubakha Shirt",
     country: "Russia",
     price: 125,
-    image: "https://images.unsplash.com/photo-1583420188544-06ca9f786b9c?w=800&q=80",
+    image: russiaRubakha,
     badge: "Eco-Friendly",
     description: "Traditional Russian linen shirt. Breathable and naturally antibacterial.",
     category: "Casual Wear",
@@ -225,7 +258,7 @@ export const allProducts = [
     name: "Qipao Cheongsam",
     country: "China",
     price: 295,
-    image: "https://images.unsplash.com/photo-1622122201714-77da0ca8e5d2?w=800&q=80",
+    image: chinaQipao,
     badge: "Artisan Verified",
     description: "Elegant silk qipao with dragon embroidery. Timeless Chinese elegance.",
     category: "Traditional Wear",
@@ -235,7 +268,7 @@ export const allProducts = [
     name: "Tang Suit",
     country: "China",
     price: 245,
-    image: "https://images.unsplash.com/photo-1574180566232-aaad1b5b8450?w=800&q=80",
+    image: chinaTangSuit,
     badge: "Fair Trade",
     description: "Classic Tang-style jacket with mandarin collar. Symbol of Chinese culture.",
     category: "Traditional Wear",
@@ -247,7 +280,7 @@ export const allProducts = [
     name: "Hanfu Casual Set",
     country: "China",
     price: 185,
-    image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&q=80",
+    image: chinaHanfu,
     badge: "Eco-Friendly",
     description: "Modern interpretation of ancient Hanfu. Flowing and comfortable.",
     category: "Casual Wear",
@@ -257,7 +290,7 @@ export const allProducts = [
     name: "Silk Tai Chi Uniform",
     country: "China",
     price: 145,
-    image: "https://images.unsplash.com/photo-1583391265003-37c0c1a6ba4e?w=800&q=80",
+    image: chinaTaiChi,
     badge: "Eco-Friendly",
     description: "Premium silk martial arts uniform. Lightweight and breathable.",
     category: "Casual Wear",
@@ -269,7 +302,7 @@ export const allProducts = [
     name: "Silk Kimono - Cherry Blossom",
     country: "Japan",
     price: 425,
-    image: "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=800&q=80",
+    image: japanKimonoSakura,
     badge: "Artisan Verified",
     description: "Elegant silk kimono with sakura patterns. Hand-stitched by Kyoto artisans.",
     category: "Traditional Wear",
@@ -279,7 +312,7 @@ export const allProducts = [
     name: "Formal Hakama Set",
     country: "Japan",
     price: 385,
-    image: "https://images.unsplash.com/photo-1583391265003-17a8a5eb1f1e?w=800&q=80",
+    image: japanHakama,
     badge: "Fair Trade",
     description: "Traditional hakama pants with matching haori jacket. Ceremonial excellence.",
     category: "Traditional Wear",
@@ -291,7 +324,7 @@ export const allProducts = [
     name: "Yukata Cotton Kimono",
     country: "Japan",
     price: 165,
-    image: "https://images.unsplash.com/photo-1617627143750-d86bc393c562?w=800&q=80",
+    image: japanYukata,
     badge: "Eco-Friendly",
     description: "Lightweight summer yukata with indigo dyeing. Perfect for festivals.",
     category: "Casual Wear",
@@ -301,7 +334,7 @@ export const allProducts = [
     name: "Haori Jacket",
     country: "Japan",
     price: 195,
-    image: "https://images.unsplash.com/photo-1622122201714-77da0ca8e5d2?w=800&q=80",
+    image: japanHaori,
     badge: "Eco-Friendly",
     description: "Traditional short jacket with crane motifs. Versatile and stylish.",
     category: "Casual Wear",
@@ -313,7 +346,7 @@ export const allProducts = [
     name: "Hanbok - Royal Edition",
     country: "South Korea",
     price: 395,
-    image: "https://images.unsplash.com/photo-1583420188544-06ca9f786b9c?w=800&q=80",
+    image: koreaHanbokRoyal,
     badge: "Artisan Verified",
     description: "Luxurious silk hanbok with vibrant colors. Traditional Korean elegance.",
     category: "Traditional Wear",
@@ -323,7 +356,7 @@ export const allProducts = [
     name: "Modern Hanbok Fusion",
     country: "South Korea",
     price: 285,
-    image: "https://images.unsplash.com/photo-1574180566232-aaad1b5b8450?w=800&q=80",
+    image: koreaModernHanbok,
     badge: "Fair Trade",
     description: "Contemporary hanbok design blending tradition with modern aesthetics.",
     category: "Traditional Wear",
@@ -335,7 +368,7 @@ export const allProducts = [
     name: "Modernized Jeogori Top",
     country: "South Korea",
     price: 135,
-    image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&q=80",
+    image: koreaJeogori,
     badge: "Eco-Friendly",
     description: "Casual hanbok-inspired top with organic cotton. Everyday elegance.",
     category: "Casual Wear",
@@ -345,7 +378,7 @@ export const allProducts = [
     name: "Ramie Linen Durumagi",
     country: "South Korea",
     price: 165,
-    image: "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=800&q=80",
+    image: koreaDurumagi,
     badge: "Eco-Friendly",
     description: "Traditional Korean overcoat in sustainable ramie fabric. Lightweight luxury.",
     category: "Casual Wear",
