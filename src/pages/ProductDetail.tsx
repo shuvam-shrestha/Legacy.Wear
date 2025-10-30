@@ -45,14 +45,38 @@ const ProductDetail = () => {
     .filter(p => p.country === product.country && p.id !== product.id)
     .slice(0, 4);
 
+  const convertImageToBase64 = async (imageSrc: string): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          reject(new Error('Failed to get canvas context'));
+          return;
+        }
+        ctx.drawImage(img, 0, 0);
+        resolve(canvas.toDataURL('image/jpeg', 0.9));
+      };
+      img.onerror = () => reject(new Error('Failed to load image'));
+      img.src = imageSrc;
+    });
+  };
+
   const handleVisualize = async () => {
     if (!product) return;
     
     setIsGenerating(true);
     try {
+      // Convert image to base64
+      const base64Image = await convertImageToBase64(product.image);
+      
       const { data, error } = await supabase.functions.invoke('visualize-outfit', {
         body: {
-          productImage: product.image,
+          productImage: base64Image,
           color: selectedColor,
           skinTone: selectedSkinTone,
           mood: selectedMood
