@@ -5,14 +5,26 @@ import { allProducts } from '@/data/products';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useCart } from '@/contexts/CartContext';
-import { ShoppingCart, Heart, ArrowLeft } from 'lucide-react';
+import { ShoppingCart, Heart, ArrowLeft, Sparkles } from 'lucide-react';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Label } from '@/components/ui/label';
+import { useState } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addToCart } = useCart();
+  const { toast } = useToast();
   
   const product = allProducts.find(p => p.id === Number(id));
+  
+  const [selectedColor, setSelectedColor] = useState('original');
+  const [selectedSkinTone, setSelectedSkinTone] = useState('medium');
+  const [selectedMood, setSelectedMood] = useState('confident');
+  const [visualizedImage, setVisualizedImage] = useState<string | null>(null);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   if (!product) {
     return (
@@ -33,6 +45,41 @@ const ProductDetail = () => {
     .filter(p => p.country === product.country && p.id !== product.id)
     .slice(0, 4);
 
+  const handleVisualize = async () => {
+    if (!product) return;
+    
+    setIsGenerating(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('visualize-outfit', {
+        body: {
+          productImage: product.image,
+          color: selectedColor,
+          skinTone: selectedSkinTone,
+          mood: selectedMood
+        }
+      });
+
+      if (error) throw error;
+      
+      if (data?.imageUrl) {
+        setVisualizedImage(data.imageUrl);
+        toast({
+          title: "Visualization Ready!",
+          description: "Your personalized outfit visualization has been generated.",
+        });
+      }
+    } catch (error) {
+      console.error('Error generating visualization:', error);
+      toast({
+        title: "Generation Failed",
+        description: "Unable to generate visualization. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
   return (
     <div className="min-h-screen">
       <Navigation />
@@ -49,12 +96,109 @@ const ProductDetail = () => {
 
           <div className="grid md:grid-cols-2 gap-12 mb-16">
             {/* Image */}
-            <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-hover">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-full object-cover"
-              />
+            <div className="space-y-4">
+              <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-hover">
+                <img
+                  src={visualizedImage || product.image}
+                  alt={product.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              
+              {/* Personalization Controls */}
+              <div className="bg-card rounded-xl p-6 shadow-card space-y-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <Sparkles className="h-5 w-5 text-primary" />
+                  <h3 className="font-semibold text-lg">AI Personalization</h3>
+                </div>
+
+                {/* Color Selection */}
+                <div className="space-y-3">
+                  <Label className="text-sm font-medium">Dress Color</Label>
+                  <RadioGroup value={selectedColor} onValueChange={setSelectedColor}>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="original" id="original" />
+                      <Label htmlFor="original" className="cursor-pointer">Original</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="red" id="red" />
+                      <Label htmlFor="red" className="cursor-pointer">Red</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="blue" id="blue" />
+                      <Label htmlFor="blue" className="cursor-pointer">Blue</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="green" id="green" />
+                      <Label htmlFor="green" className="cursor-pointer">Green</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="gold" id="gold" />
+                      <Label htmlFor="gold" className="cursor-pointer">Gold</Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+
+                {/* Skin Tone Selection */}
+                <div className="space-y-3">
+                  <Label className="text-sm font-medium">Skin Tone</Label>
+                  <RadioGroup value={selectedSkinTone} onValueChange={setSelectedSkinTone}>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="fair" id="fair" />
+                      <Label htmlFor="fair" className="cursor-pointer">Fair</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="medium" id="medium" />
+                      <Label htmlFor="medium" className="cursor-pointer">Medium</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="olive" id="olive" />
+                      <Label htmlFor="olive" className="cursor-pointer">Olive</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="tan" id="tan" />
+                      <Label htmlFor="tan" className="cursor-pointer">Tan</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="deep" id="deep" />
+                      <Label htmlFor="deep" className="cursor-pointer">Deep</Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+
+                {/* Mood Selection */}
+                <div className="space-y-3">
+                  <Label className="text-sm font-medium">Mood</Label>
+                  <RadioGroup value={selectedMood} onValueChange={setSelectedMood}>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="confident" id="confident" />
+                      <Label htmlFor="confident" className="cursor-pointer">Confident</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="elegant" id="elegant" />
+                      <Label htmlFor="elegant" className="cursor-pointer">Elegant</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="joyful" id="joyful" />
+                      <Label htmlFor="joyful" className="cursor-pointer">Joyful</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="serene" id="serene" />
+                      <Label htmlFor="serene" className="cursor-pointer">Serene</Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+
+                <Button 
+                  onClick={handleVisualize} 
+                  disabled={isGenerating}
+                  className="w-full"
+                  variant="hero"
+                >
+                  <Sparkles className="mr-2 h-4 w-4" />
+                  {isGenerating ? 'Generating...' : 'Visualize on Model'}
+                </Button>
+              </div>
             </div>
 
             {/* Details */}
