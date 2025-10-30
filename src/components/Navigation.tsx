@@ -1,15 +1,18 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ShoppingCart, Search, Menu, Globe } from "lucide-react";
+import { ShoppingCart, Search, Menu, Globe, LogOut, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
 import { useCart } from '@/contexts/CartContext';
+import { useAuth } from '@/contexts/AuthContext';
+import { toast } from '@/hooks/use-toast';
 
 const Navigation = () => {
   const navigate = useNavigate();
   const { getCartCount } = useCart();
+  const { user, signOut } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
   const cartCount = getCartCount();
 
@@ -18,6 +21,15 @@ const Navigation = () => {
     if (searchQuery.trim()) {
       navigate(`/products?search=${encodeURIComponent(searchQuery)}`);
     }
+  };
+
+  const handleSignOut = async () => {
+    await signOut();
+    toast({
+      title: "Signed out",
+      description: "You have been successfully signed out.",
+    });
+    navigate('/');
   };
   
   return (
@@ -100,6 +112,28 @@ const Navigation = () => {
               )}
             </Button>
 
+            {user ? (
+              <Button
+                onClick={handleSignOut}
+                variant="ghost"
+                size="sm"
+                className="hidden md:flex gap-2 transition-all duration-300 hover:scale-105"
+              >
+                <LogOut className="h-4 w-4" />
+                Sign Out
+              </Button>
+            ) : (
+              <Button
+                onClick={() => navigate('/auth')}
+                variant="default"
+                size="sm"
+                className="hidden md:flex gap-2 transition-all duration-300 hover:scale-105"
+              >
+                <LogIn className="h-4 w-4" />
+                Sign In
+              </Button>
+            )}
+
             {/* Mobile Menu */}
             <Sheet>
               <SheetTrigger asChild className="md:hidden">
@@ -133,6 +167,28 @@ const Navigation = () => {
                   >
                     Contact
                   </button>
+
+                  {user ? (
+                    <Button
+                      onClick={handleSignOut}
+                      variant="ghost"
+                      size="sm"
+                      className="w-full justify-start gap-2"
+                    >
+                      <LogOut className="h-4 w-4" />
+                      Sign Out
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={() => navigate('/auth')}
+                      variant="default"
+                      size="sm"
+                      className="w-full justify-start gap-2"
+                    >
+                      <LogIn className="h-4 w-4" />
+                      Sign In
+                    </Button>
+                  )}
                 </div>
               </SheetContent>
             </Sheet>
