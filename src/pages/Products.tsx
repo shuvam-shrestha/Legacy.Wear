@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import ProductCard from '@/components/ProductCard';
@@ -9,9 +9,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 
 const Products = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [selectedCountry, setSelectedCountry] = useState<string>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [sortBy, setSortBy] = useState<string>('featured');
+  const searchQuery = searchParams.get('search') || '';
 
   const countries = ['all', ...Array.from(new Set(allProducts.map(p => p.country)))];
   const categories = ['all', ...Array.from(new Set(allProducts.map(p => p.category || 'Other')))];
@@ -19,7 +21,16 @@ const Products = () => {
   let filteredProducts = allProducts.filter(product => {
     const matchesCountry = selectedCountry === 'all' || product.country === selectedCountry;
     const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
-    return matchesCountry && matchesCategory;
+    
+    // Enhanced search: search across name, country, description, category, and badge
+    const matchesSearch = !searchQuery || 
+      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.country.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (product.category && product.category.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      product.badge.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    return matchesCountry && matchesCategory && matchesSearch;
   });
 
   // Sort products
@@ -37,10 +48,13 @@ const Products = () => {
           <div className="container mx-auto px-4">
             <div className="text-center mb-8">
               <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">
-                All Products
+                {searchQuery ? `Search Results for "${searchQuery}"` : 'All Products'}
               </h1>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Explore our complete collection of authentic cultural fashion from around the world
+                {searchQuery 
+                  ? `Found ${filteredProducts.length} product${filteredProducts.length !== 1 ? 's' : ''} matching your search`
+                  : 'Explore our complete collection of authentic cultural fashion from around the world'
+                }
               </p>
             </div>
 

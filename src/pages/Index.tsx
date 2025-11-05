@@ -4,7 +4,7 @@ import CountryCollections from "@/components/CountryCollections";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import AIPersonalization from "@/components/AIPersonalization";
 import LiveStreaming from "@/components/LiveStreaming";
-import Sustainability from "@/components/Sustainability";
+import TikTokTrends from "@/components/TikTokTrends";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -17,7 +17,7 @@ const Index = () => {
         <FeaturedProducts />
         <AIPersonalization />
         <LiveStreaming />
-        <Sustainability />
+        <TikTokTrends />
       </main>
       <Footer />
     </div>

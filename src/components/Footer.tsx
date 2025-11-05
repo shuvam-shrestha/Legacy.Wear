@@ -1,8 +1,66 @@
 import { Globe, Instagram, Facebook, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
+import { z } from "zod";
+
+const emailSchema = z.string().trim().email({ message: "Invalid email address" }).max(255, { message: "Email must be less than 255 characters" });
 
 const Footer = () => {
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    try {
+      emailSchema.parse(email);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        toast({
+          title: "Invalid email",
+          description: error.issues[0].message,
+          variant: "destructive",
+        });
+        return;
+      }
+    }
+
+    setIsSubmitting(true);
+    try {
+      const { error } = await supabase
+        .from('newsletter_subscriptions')
+        .insert({ email: email.trim() });
+
+      if (error) {
+        if (error.code === '23505') {
+          toast({
+            title: "Already subscribed",
+            description: "This email is already subscribed to our newsletter.",
+          });
+        } else {
+          throw error;
+        }
+      } else {
+        toast({
+          title: "Successfully subscribed!",
+          description: "Thank you for subscribing to our newsletter.",
+        });
+        setEmail('');
+      }
+    } catch (error) {
+      toast({
+        title: "Subscription failed",
+        description: "Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="container mx-auto px-4 py-12">
@@ -17,13 +75,28 @@ const Footer = () => {
               Connecting the world with authentic cultural fashion from master artisans.
             </p>
             <div className="flex space-x-3">
-              <Button variant="ghost" size="icon" className="text-primary-foreground hover:bg-primary-foreground/10">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="text-primary-foreground hover:bg-primary-foreground/10"
+                onClick={() => window.open('https://www.instagram.com/legacywear', '_blank')}
+              >
                 <Instagram className="h-5 w-5" />
               </Button>
-              <Button variant="ghost" size="icon" className="text-primary-foreground hover:bg-primary-foreground/10">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="text-primary-foreground hover:bg-primary-foreground/10"
+                onClick={() => window.open('https://www.facebook.com/legacywear', '_blank')}
+              >
                 <Facebook className="h-5 w-5" />
               </Button>
-              <Button variant="ghost" size="icon" className="text-primary-foreground hover:bg-primary-foreground/10">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="text-primary-foreground hover:bg-primary-foreground/10"
+                onClick={() => window.open('https://twitter.com/legacywear', '_blank')}
+              >
                 <Twitter className="h-5 w-5" />
               </Button>
             </div>
@@ -57,16 +130,19 @@ const Footer = () => {
             <p className="text-sm text-primary-foreground/80 mb-4">
               Get updates on new collections and exclusive offers.
             </p>
-            <div className="flex gap-2">
+            <form onSubmit={handleSubscribe} className="flex gap-2">
               <Input
                 type="email"
                 placeholder="Your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50"
+                disabled={isSubmitting}
               />
-              <Button variant="secondary" size="default">
-                Subscribe
+              <Button variant="secondary" size="default" type="submit" disabled={isSubmitting}>
+                {isSubmitting ? "Subscribing..." : "Subscribe"}
               </Button>
-            </div>
+            </form>
           </div>
         </div>
 
