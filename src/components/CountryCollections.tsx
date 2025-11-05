@@ -1,57 +1,61 @@
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent } from "@/components/ui/card";
-import japanImg from "@/assets/collection-japan.jpg";
-import indiaImg from "@/assets/collection-india.jpg";
-import moroccoImg from "@/assets/collection-morocco.jpg";
-import africaImg from "@/assets/collection-africa.jpg";
+import nepalPashmina from "@/assets/products/nepal-pashmina.jpg";
+import thailandChakri from "@/assets/products/thailand-chakri.jpg";
+import indiaBaranasiSaree from "@/assets/products/india-banarasi-saree.jpg";
+import bangladeshJamdani from "@/assets/products/bangladesh-jamdani.jpg";
+import russiaSarafan from "@/assets/products/russia-sarafan.jpg";
+import chinaQipao from "@/assets/products/china-qipao.jpg";
+import japanKimonoSakura from "@/assets/products/japan-kimono-sakura.jpg";
+import koreaHanbokRoyal from "@/assets/products/korea-hanbok-royal.jpg";
 
 const collections = [
   {
     country: "Nepal",
     description: "Himalayan Heritage & Pashmina",
-    image: indiaImg,
+    image: nepalPashmina,
     items: "4 items",
   },
   {
     country: "Thailand",
     description: "Thai Silk & Traditional Attire",
-    image: japanImg,
+    image: thailandChakri,
     items: "4 items",
   },
   {
     country: "India",
     description: "Sarees, Sherwanis & More",
-    image: indiaImg,
+    image: indiaBaranasiSaree,
     items: "4 items",
   },
   {
     country: "Bangladesh",
     description: "Jamdani & Kantha Artistry",
-    image: africaImg,
+    image: bangladeshJamdani,
     items: "4 items",
   },
   {
     country: "Russia",
     description: "Folk Costumes & Shawls",
-    image: moroccoImg,
+    image: russiaSarafan,
     items: "4 items",
   },
   {
     country: "China",
     description: "Qipao, Hanfu & Tang Suits",
-    image: japanImg,
+    image: chinaQipao,
     items: "4 items",
   },
   {
     country: "Japan",
     description: "Elegant Kimonos & Yukatas",
-    image: japanImg,
+    image: japanKimonoSakura,
     items: "4 items",
   },
   {
     country: "South Korea",
     description: "Traditional & Modern Hanbok",
-    image: indiaImg,
+    image: koreaHanbokRoyal,
     items: "4 items",
   },
 ];
