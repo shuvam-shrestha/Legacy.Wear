@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ShoppingCart, Search, Menu, Globe, LogOut, LogIn } from "lucide-react";
+import { ShoppingCart, Search, Menu, LogOut, LogIn } from "lucide-react";
+import logo from "@/assets/logo.svg";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -41,7 +42,7 @@ const Navigation = () => {
             onClick={() => navigate('/')} 
             className="flex items-center space-x-2 cursor-pointer"
           >
-            <Globe className="h-6 w-6 text-primary" />
+            <img src={logo} alt="Legacy Wear Logo" className="h-10 w-10" />
             <span className="font-serif text-2xl font-bold text-primary">Legacy Wear</span>
           </div>
 
