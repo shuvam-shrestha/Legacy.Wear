@@ -2,6 +2,10 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { Card, CardContent } from '@/components/ui/card';
 import { Globe, Heart, Award, Users } from 'lucide-react';
+import nepalPashmina from "@/assets/products/nepal-pashmina.jpg";
+import indiaBaranasiSaree from "@/assets/products/india-banarasi-saree.jpg";
+import japanKimonoSakura from "@/assets/products/japan-kimono-sakura.jpg";
+import koreaHanbokRoyal from "@/assets/products/korea-hanbok-royal.jpg";
 
 const About = () => {
   return (
@@ -22,7 +26,10 @@ const About = () => {
             </div>
 
             <div className="grid md:grid-cols-2 gap-8 mb-16">
-              <Card className="shadow-card">
+              <Card className="shadow-card overflow-hidden">
+                <div className="relative aspect-video">
+                  <img src={nepalPashmina} alt="Global Marketplace" className="w-full h-full object-cover" />
+                </div>
                 <CardContent className="p-8">
                   <Globe className="h-12 w-12 text-accent mb-4" />
                   <h3 className="font-serif text-2xl font-bold mb-4">
@@ -30,13 +37,16 @@ const About = () => {
                   </h3>
                   <p className="text-muted-foreground">
                     We connect authentic cultural fashion from over 50 countries, bringing the 
-                    world's heritage to your doorstep. Each piece is carefully curated and verified 
+                    world&apos;s heritage to your doorstep. Each piece is carefully curated and verified 
                     by local experts.
                   </p>
                 </CardContent>
               </Card>
 
-              <Card className="shadow-card">
+              <Card className="shadow-card overflow-hidden">
+                <div className="relative aspect-video">
+                  <img src={indiaBaranasiSaree} alt="Artisan Partnerships" className="w-full h-full object-cover" />
+                </div>
                 <CardContent className="p-8">
                   <Users className="h-12 w-12 text-accent mb-4" />
                   <h3 className="font-serif text-2xl font-bold mb-4">
@@ -50,7 +60,10 @@ const About = () => {
                 </CardContent>
               </Card>
 
-              <Card className="shadow-card">
+              <Card className="shadow-card overflow-hidden">
+                <div className="relative aspect-video">
+                  <img src={japanKimonoSakura} alt="Sustainability First" className="w-full h-full object-cover" />
+                </div>
                 <CardContent className="p-8">
                   <Heart className="h-12 w-12 text-accent mb-4" />
                   <h3 className="font-serif text-2xl font-bold mb-4">
@@ -64,7 +77,10 @@ const About = () => {
                 </CardContent>
               </Card>
 
-              <Card className="shadow-card">
+              <Card className="shadow-card overflow-hidden">
+                <div className="relative aspect-video">
+                  <img src={koreaHanbokRoyal} alt="Authenticity Guaranteed" className="w-full h-full object-cover" />
+                </div>
                 <CardContent className="p-8">
                   <Award className="h-12 w-12 text-accent mb-4" />
                   <h3 className="font-serif text-2xl font-bold mb-4">
@@ -83,9 +99,9 @@ const About = () => {
                 Our Mission
               </h2>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                To preserve and celebrate the world's cultural fashion heritage by creating a 
+                To preserve and celebrate the world&apos;s cultural fashion heritage by creating a 
                 sustainable marketplace that empowers artisans, educates consumers, and connects 
-                communities across the globe. We're not just selling clothes—we're sharing stories, 
+                communities across the globe. We&apos;re not just selling clothes—we&apos;re sharing stories, 
                 traditions, and the beauty of human creativity.
               </p>
             </div>

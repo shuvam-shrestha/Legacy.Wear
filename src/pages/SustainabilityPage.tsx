@@ -50,7 +50,7 @@ const SustainabilityPage = () => {
         {/* Hero Section */}
         <section className="py-16 bg-gradient-warm">
           <div className="container mx-auto px-4">
-            <div className="text-center max-w-4xl mx-auto">
+            <div className="text-center max-w-4xl mx-auto mb-8">
               <h1 className="font-serif text-5xl md:text-6xl font-bold mb-6">
                 Our Commitment to Sustainability
               </h1>
@@ -58,7 +58,7 @@ const SustainabilityPage = () => {
                 Fashion that honors both heritage and our planet. Every piece we create 
                 tells a story of cultural preservation and environmental responsibility.
               </p>
-              <div className="flex flex-wrap justify-center gap-4">
+              <div className="flex flex-wrap justify-center gap-4 mb-8">
                 <Badge variant="secondary" className="text-sm px-4 py-2">
                   <Leaf className="h-4 w-4 mr-2" />
                   100% Eco-Certified
@@ -71,6 +71,19 @@ const SustainabilityPage = () => {
                   <Heart className="h-4 w-4 mr-2" />
                   Fair Trade Verified
                 </Badge>
+              </div>
+            </div>
+            
+            {/* YouTube Video */}
+            <div className="max-w-5xl mx-auto">
+              <div className="relative aspect-video rounded-2xl overflow-hidden shadow-card">
+                <iframe
+                  className="w-full h-full"
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&loop=1&playlist=dQw4w9WgXcQ&controls=0&modestbranding=1"
+                  title="Sustainability Video"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
               </div>
             </div>
           </div>

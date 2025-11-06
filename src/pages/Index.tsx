@@ -5,6 +5,7 @@ import FeaturedProducts from "@/components/FeaturedProducts";
 import AIPersonalization from "@/components/AIPersonalization";
 import LiveStreaming from "@/components/LiveStreaming";
 import TikTokTrends from "@/components/TikTokTrends";
+import Testimonials from "@/components/Testimonials";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -18,6 +19,7 @@ const Index = () => {
         <AIPersonalization />
         <LiveStreaming />
         <TikTokTrends />
+        <Testimonials />
       </main>
       <Footer />
     </div>
