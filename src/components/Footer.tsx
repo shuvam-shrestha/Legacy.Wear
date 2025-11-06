@@ -1,4 +1,5 @@
-import { Globe, Instagram, Facebook, Twitter } from "lucide-react";
+import { Instagram, Facebook, Twitter } from "lucide-react";
+import logo from "@/assets/logo.svg";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
@@ -68,7 +69,7 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <div className="flex items-center space-x-2 mb-4">
-              <Globe className="h-6 w-6" />
+              <img src={logo} alt="Legacy Wear Logo" className="h-8 w-8" />
               <span className="font-serif text-2xl font-bold">Legacy Wear</span>
             </div>
             <p className="text-primary-foreground/80 text-sm mb-4">
