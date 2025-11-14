@@ -1,11 +1,19 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ShoppingCart, Search, Menu, LogOut, LogIn } from "lucide-react";
+import { ShoppingCart, Search, Menu, LogOut, LogIn, ChevronDown } from "lucide-react";
 import logo from "@/assets/logo.svg";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from '@/hooks/use-toast';
@@ -48,13 +56,136 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <button 
-              onClick={() => navigate('/products')}
-              className="text-sm font-medium hover:text-primary transition-all duration-300 hover:scale-110 relative group"
-            >
-              Collections
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-            </button>
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="bg-transparent text-sm font-medium">
+                    Category
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[400px] gap-1 p-4 bg-popover">
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <button
+                            onClick={() => navigate('/products')}
+                            className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground w-full text-left"
+                          >
+                            <div className="text-sm font-medium leading-none">All Products</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
+                              Browse our entire collection
+                            </p>
+                          </button>
+                        </NavigationMenuLink>
+                      </li>
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <button
+                            onClick={() => navigate('/products?gender=men')}
+                            className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground w-full text-left"
+                          >
+                            <div className="text-sm font-medium leading-none">Men Apparels</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
+                              Explore men's cultural fashion
+                            </p>
+                          </button>
+                        </NavigationMenuLink>
+                      </li>
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <button
+                            onClick={() => navigate('/products?gender=women')}
+                            className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground w-full text-left"
+                          >
+                            <div className="text-sm font-medium leading-none">Women Apparels</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
+                              Discover women's traditional wear
+                            </p>
+                          </button>
+                        </NavigationMenuLink>
+                      </li>
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <button
+                            onClick={() => navigate('/products?category=Traditional%20Wear')}
+                            className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground w-full text-left"
+                          >
+                            <div className="text-sm font-medium leading-none">Traditional</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
+                              Authentic traditional attire
+                            </p>
+                          </button>
+                        </NavigationMenuLink>
+                      </li>
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <button
+                            onClick={() => navigate('/products?category=Casual%20Wear')}
+                            className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground w-full text-left"
+                          >
+                            <div className="text-sm font-medium leading-none">Casual</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
+                              Comfortable everyday wear
+                            </p>
+                          </button>
+                        </NavigationMenuLink>
+                      </li>
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <button
+                            onClick={() => navigate('/products?tag=trendy')}
+                            className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground w-full text-left"
+                          >
+                            <div className="text-sm font-medium leading-none">Trendy</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
+                              Modern cultural fusion pieces
+                            </p>
+                          </button>
+                        </NavigationMenuLink>
+                      </li>
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <button
+                            onClick={() => navigate('/products?tag=artisan-verified')}
+                            className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground w-full text-left"
+                          >
+                            <div className="text-sm font-medium leading-none">Artisan Verified</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
+                              Handcrafted by master artisans
+                            </p>
+                          </button>
+                        </NavigationMenuLink>
+                      </li>
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <button
+                            onClick={() => navigate('/products?tag=fair-trade')}
+                            className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground w-full text-left"
+                          >
+                            <div className="text-sm font-medium leading-none">Fair Trade</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
+                              Ethically sourced products
+                            </p>
+                          </button>
+                        </NavigationMenuLink>
+                      </li>
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <button
+                            onClick={() => navigate('/products?tag=eco-friendly')}
+                            className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground w-full text-left"
+                          >
+                            <div className="text-sm font-medium leading-none">Eco-Friendly</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
+                              Sustainable and eco-conscious
+                            </p>
+                          </button>
+                        </NavigationMenuLink>
+                      </li>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
             <button 
               onClick={() => navigate('/about')}
               className="text-sm font-medium hover:text-primary transition-all duration-300 hover:scale-110 relative group"
@@ -148,7 +279,55 @@ const Navigation = () => {
                     onClick={() => navigate('/products')}
                     className="text-lg font-medium hover:text-primary transition-colors text-left"
                   >
-                    Collections
+                    All Products
+                  </button>
+                  <button 
+                    onClick={() => navigate('/products?gender=men')}
+                    className="text-base hover:text-primary transition-colors text-left pl-4"
+                  >
+                    Men Apparels
+                  </button>
+                  <button 
+                    onClick={() => navigate('/products?gender=women')}
+                    className="text-base hover:text-primary transition-colors text-left pl-4"
+                  >
+                    Women Apparels
+                  </button>
+                  <button 
+                    onClick={() => navigate('/products?category=Traditional%20Wear')}
+                    className="text-base hover:text-primary transition-colors text-left pl-4"
+                  >
+                    Traditional
+                  </button>
+                  <button 
+                    onClick={() => navigate('/products?category=Casual%20Wear')}
+                    className="text-base hover:text-primary transition-colors text-left pl-4"
+                  >
+                    Casual
+                  </button>
+                  <button 
+                    onClick={() => navigate('/products?tag=trendy')}
+                    className="text-base hover:text-primary transition-colors text-left pl-4"
+                  >
+                    Trendy
+                  </button>
+                  <button 
+                    onClick={() => navigate('/products?tag=artisan-verified')}
+                    className="text-base hover:text-primary transition-colors text-left pl-4"
+                  >
+                    Artisan Verified
+                  </button>
+                  <button 
+                    onClick={() => navigate('/products?tag=fair-trade')}
+                    className="text-base hover:text-primary transition-colors text-left pl-4"
+                  >
+                    Fair Trade
+                  </button>
+                  <button 
+                    onClick={() => navigate('/products?tag=eco-friendly')}
+                    className="text-base hover:text-primary transition-colors text-left pl-4"
+                  >
+                    Eco-Friendly
                   </button>
                   <button 
                     onClick={() => navigate('/about')}

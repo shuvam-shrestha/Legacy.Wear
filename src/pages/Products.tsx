@@ -9,20 +9,35 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 
 const Products = () => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [selectedCountry, setSelectedCountry] = useState<string>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedGender, setSelectedGender] = useState<string>('all');
+  const [selectedTag, setSelectedTag] = useState<string>('all');
   const [sortBy, setSortBy] = useState<string>('featured');
   const searchQuery = searchParams.get('search') || '';
 
+  // Sync filters with URL params
+  useEffect(() => {
+    const gender = searchParams.get('gender') || 'all';
+    const category = searchParams.get('category') || 'all';
+    const tag = searchParams.get('tag') || 'all';
+    setSelectedGender(gender);
+    setSelectedCategory(category);
+    setSelectedTag(tag);
+  }, [searchParams]);
+
   const countries = ['all', ...Array.from(new Set(allProducts.map(p => p.country)))];
   const categories = ['all', ...Array.from(new Set(allProducts.map(p => p.category || 'Other')))];
+  const genders = ['all', 'men', 'women', 'unisex'];
+  const tags = ['all', 'artisan-verified', 'fair-trade', 'eco-friendly', 'trendy'];
 
   let filteredProducts = allProducts.filter(product => {
     const matchesCountry = selectedCountry === 'all' || product.country === selectedCountry;
     const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
+    const matchesGender = selectedGender === 'all' || product.gender === selectedGender;
+    const matchesTag = selectedTag === 'all' || (product.tags && product.tags.includes(selectedTag));
     
-    // Enhanced search: search across name, country, description, category, and badge
     const matchesSearch = !searchQuery || 
       product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       product.country.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -30,7 +45,7 @@ const Products = () => {
       (product.category && product.category.toLowerCase().includes(searchQuery.toLowerCase())) ||
       product.badge.toLowerCase().includes(searchQuery.toLowerCase());
     
-    return matchesCountry && matchesCategory && matchesSearch;
+    return matchesCountry && matchesCategory && matchesGender && matchesTag && matchesSearch;
   });
 
   // Sort products
@@ -60,6 +75,27 @@ const Products = () => {
 
             {/* Filters */}
             <div className="flex flex-wrap gap-4 mb-8 justify-center">
+              <Select value={selectedGender} onValueChange={(value) => {
+                setSelectedGender(value);
+                if (value !== 'all') {
+                  searchParams.set('gender', value);
+                } else {
+                  searchParams.delete('gender');
+                }
+                setSearchParams(searchParams);
+              }}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Gender" />
+                </SelectTrigger>
+                <SelectContent>
+                  {genders.map(gender => (
+                    <SelectItem key={gender} value={gender}>
+                      {gender === 'all' ? 'All Genders' : gender.charAt(0).toUpperCase() + gender.slice(1)}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
               <Select value={selectedCountry} onValueChange={setSelectedCountry}>
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Country" />
@@ -73,7 +109,15 @@ const Products = () => {
                 </SelectContent>
               </Select>
 
-              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+              <Select value={selectedCategory} onValueChange={(value) => {
+                setSelectedCategory(value);
+                if (value !== 'all') {
+                  searchParams.set('category', value);
+                } else {
+                  searchParams.delete('category');
+                }
+                setSearchParams(searchParams);
+              }}>
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Category" />
                 </SelectTrigger>
@@ -81,6 +125,27 @@ const Products = () => {
                   {categories.map(category => (
                     <SelectItem key={category} value={category}>
                       {category === 'all' ? 'All Categories' : category}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <Select value={selectedTag} onValueChange={(value) => {
+                setSelectedTag(value);
+                if (value !== 'all') {
+                  searchParams.set('tag', value);
+                } else {
+                  searchParams.delete('tag');
+                }
+                setSearchParams(searchParams);
+              }}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Filter by Tag" />
+                </SelectTrigger>
+                <SelectContent>
+                  {tags.map(tag => (
+                    <SelectItem key={tag} value={tag}>
+                      {tag === 'all' ? 'All Tags' : tag.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -110,12 +175,15 @@ const Products = () => {
                 <p className="text-lg text-muted-foreground mb-4">
                   No products found matching your filters
                 </p>
-                <Button onClick={() => {
-                  setSelectedCountry('all');
-                  setSelectedCategory('all');
-                }}>
-                  Clear Filters
-                </Button>
+                  <Button onClick={() => {
+                    setSelectedCountry('all');
+                    setSelectedCategory('all');
+                    setSelectedGender('all');
+                    setSelectedTag('all');
+                    navigate('/products');
+                  }}>
+                    Clear Filters
+                  </Button>
               </div>
             )}
           </div>
