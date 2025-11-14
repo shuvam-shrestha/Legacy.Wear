@@ -11,34 +11,63 @@ import { allProducts } from '@/data/products';
 
 const questions = [
   {
-    id: 'occasion',
-    question: 'What occasion are you shopping for?',
-    options: [
-      { value: 'wedding', label: 'Wedding or Formal Event' },
-      { value: 'casual', label: 'Casual Daily Wear' },
-      { value: 'festival', label: 'Cultural Festival' },
-      { value: 'gift', label: 'Gift for Someone Special' },
-    ],
-  },
-  {
     id: 'mood',
-    question: 'How would you describe your style mood?',
+    question: 'What mood do you want your outfit to express?',
     options: [
       { value: 'elegant', label: 'Elegant & Sophisticated' },
-      { value: 'vibrant', label: 'Vibrant & Bold' },
-      { value: 'traditional', label: 'Traditional & Classic' },
-      { value: 'modern', label: 'Modern & Contemporary' },
+      { value: 'romantic', label: 'Romantic & Graceful' },
+      { value: 'bold', label: 'Bold & Confident' },
+      { value: 'serene', label: 'Peaceful & Serene' },
     ],
   },
   {
-    id: 'region',
-    question: 'Which region\'s fashion interests you most?',
+    id: 'feeling',
+    question: 'How do you want to feel when wearing this dress?',
     options: [
-      { value: 'southasia', label: 'South Asia (Nepal, India, Bangladesh)' },
-      { value: 'eastasia', label: 'East Asia (China, Japan, South Korea)' },
-      { value: 'southeast', label: 'Southeast Asia (Thailand)' },
-      { value: 'russia', label: 'Russia' },
-      { value: 'any', label: 'I\'m open to all cultures' },
+      { value: 'empowered', label: 'Empowered & Strong' },
+      { value: 'comfortable', label: 'Comfortable & Relaxed' },
+      { value: 'glamorous', label: 'Glamorous & Eye-catching' },
+      { value: 'authentic', label: 'Authentic & Connected to heritage' },
+    ],
+  },
+  {
+    id: 'colors',
+    question: 'What colors resonate with your current mood?',
+    options: [
+      { value: 'jewel', label: 'Rich jewel tones (Ruby, Sapphire, Emerald)' },
+      { value: 'pastel', label: 'Soft pastels (Blush, Lavender, Mint)' },
+      { value: 'earth', label: 'Earthy naturals (Terracotta, Sage, Cream)' },
+      { value: 'dramatic', label: 'Deep dramatic shades (Burgundy, Navy, Black)' },
+    ],
+  },
+  {
+    id: 'atmosphere',
+    question: 'What kind of atmosphere are you dressing for?',
+    options: [
+      { value: 'intimate', label: 'Intimate & Personal gathering' },
+      { value: 'celebration', label: 'Grand celebration & Festivities' },
+      { value: 'cultural', label: 'Cultural ceremony & Tradition' },
+      { value: 'everyday', label: 'Everyday elegance' },
+    ],
+  },
+  {
+    id: 'fabric',
+    question: 'Which fabric feeling appeals to you most?',
+    options: [
+      { value: 'silk', label: 'Luxurious silk - smooth & flowing' },
+      { value: 'cotton', label: 'Soft cotton - breathable & light' },
+      { value: 'brocade', label: 'Rich brocade - textured & ornate' },
+      { value: 'linen', label: 'Natural linen - crisp & authentic' },
+    ],
+  },
+  {
+    id: 'details',
+    question: 'What detail speaks to your style personality?',
+    options: [
+      { value: 'embroidery', label: 'Intricate embroidery & handwork' },
+      { value: 'minimal', label: 'Clean lines & minimal embellishments' },
+      { value: 'prints', label: 'Traditional prints & patterns' },
+      { value: 'fusion', label: 'Modern fusion of old & new' },
     ],
   },
 ];

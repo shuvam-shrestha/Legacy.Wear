@@ -4,32 +4,28 @@ import { useState, useEffect } from "react";
 
 const testimonials = [
   {
-    name: "Sarah Johnson",
-    location: "New York, USA",
+    name: "Sarah Chen",
+    location: "San Francisco, USA",
     rating: 5,
-    text: "The quality and authenticity of the Kimono I purchased is absolutely stunning. I felt the cultural heritage in every thread. Legacy Wear has connected me with traditions I've always admired.",
-    product: "Japanese Kimono"
+    text: "The quality of the handwoven silk saree I purchased exceeded all expectations. The craftsmanship is absolutely stunning, and I love knowing that my purchase supports traditional artisans.",
+    product: "Banarasi Silk Saree",
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop"
   },
   {
-    name: "Michael Chen",
-    location: "Singapore",
+    name: "Maria Rodriguez",
+    location: "Barcelona, Spain",
     rating: 5,
-    text: "As someone passionate about sustainable fashion, Legacy Wear is a dream come true. The eco-friendly materials and fair trade practices make every purchase meaningful. Plus, the designs are breathtaking!",
-    product: "Nepal Pashmina"
+    text: "I wore my traditional kimono to a cultural event and received so many compliments. The fabric is luxurious and the colors are vibrant. Truly a piece of art!",
+    product: "Cherry Blossom Kimono",
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop"
   },
   {
     name: "Priya Sharma",
     location: "Mumbai, India",
     rating: 5,
-    text: "I was amazed by the craftsmanship of the Hanbok I ordered. The artisan's story that came with it made me appreciate the garment even more. This is fashion with a soul!",
-    product: "Korean Hanbok"
-  },
-  {
-    name: "David Martinez",
-    location: "Barcelona, Spain",
-    rating: 5,
-    text: "Legacy Wear brings the world's cultures to your wardrobe. The Moroccan Kaftan I bought is not just clothing—it's wearable art. Customer service was excellent too!",
-    product: "Moroccan Kaftan"
+    text: "Finally found authentic cultural wear online! The attention to detail in my Hanbok is remarkable. Fast shipping and beautiful packaging too.",
+    product: "Royal Blue Hanbok",
+    image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop"
   }
 ];
 
@@ -62,6 +58,18 @@ const Testimonials = () => {
           <Card className="shadow-card border-2 border-accent/20 overflow-hidden">
             <CardContent className="p-0">
               <div className="bg-gradient-to-br from-accent/10 to-primary/10 p-8 md:p-12">
+                <div className="flex justify-center items-center gap-4 mb-6">
+                  <img 
+                    src={testimonial.image} 
+                    alt={testimonial.name}
+                    className="w-20 h-20 rounded-full object-cover border-4 border-accent/30 shadow-lg"
+                  />
+                  <div>
+                    <p className="font-bold text-lg">{testimonial.name}</p>
+                    <p className="text-muted-foreground">{testimonial.location}</p>
+                  </div>
+                </div>
+
                 <div className="flex justify-center mb-6">
                   <Quote className="h-16 w-16 text-accent opacity-50" />
                 </div>
@@ -78,8 +86,6 @@ const Testimonials = () => {
                   </p>
                   
                   <div className="space-y-2">
-                    <p className="font-bold text-lg">{testimonial.name}</p>
-                    <p className="text-muted-foreground">{testimonial.location}</p>
                     <p className="text-sm text-accent font-medium">Purchased: {testimonial.product}</p>
                   </div>
                 </div>
