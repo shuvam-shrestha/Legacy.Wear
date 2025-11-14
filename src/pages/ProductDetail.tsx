@@ -50,6 +50,19 @@ const ProductDetail = () => {
   // Load AI description on mount
   useEffect(() => {
     const generateDescription = async () => {
+      // Check if we have a cached description for this product
+      const cacheKey = `product_desc_${product.id}`;
+      const cached = localStorage.getItem(cacheKey);
+      
+      if (cached) {
+        const { description, timestamp } = JSON.parse(cached);
+        // Cache valid for 24 hours
+        if (Date.now() - timestamp < 24 * 60 * 60 * 1000) {
+          setAiDescription(description);
+          return;
+        }
+      }
+
       setIsLoadingDescription(true);
       setAiDescription('');
       
@@ -75,8 +88,22 @@ const ProductDetail = () => {
           }
         );
 
-        if (!response.ok || !response.body) {
-          throw new Error('Failed to generate description');
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({}));
+          if (response.status === 429) {
+            toast({
+              title: "Too Many Requests",
+              description: "Please wait a moment before trying again.",
+              variant: "destructive",
+            });
+            setAiDescription(product.description);
+            return;
+          }
+          throw new Error(errorData.error || 'Failed to generate description');
+        }
+
+        if (!response.body) {
+          throw new Error('No response body');
         }
 
         const reader = response.body.getReader();
@@ -123,6 +150,14 @@ const ProductDetail = () => {
             }
           }
         }
+
+        // Cache the full description
+        if (fullText) {
+          localStorage.setItem(cacheKey, JSON.stringify({
+            description: fullText,
+            timestamp: Date.now()
+          }));
+        }
       } catch (error) {
         console.error('Error generating description:', error);
         setAiDescription(product.description); // Fallback to original description
@@ -132,7 +167,7 @@ const ProductDetail = () => {
     };
 
     generateDescription();
-  }, [product]);
+  }, [product, toast]);
 
   const convertImageToBase64 = async (imageSrc: string): Promise<string> => {
     return new Promise((resolve, reject) => {
