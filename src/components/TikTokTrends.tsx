@@ -5,30 +5,30 @@ import { Button } from "@/components/ui/button";
 const trendingVideos = [
   {
     id: 1,
-    title: "Traditional Hanbok Styling Tips",
-    creator: "@KoreanFashionTrends",
-    views: "2.3M",
-    thumbnail: "https://images.unsplash.com/photo-1583391265003-b8a997c80578?w=400&h=600&fit=crop",
-    url: "https://www.tiktok.com/@koreanfashiontrends",
-    description: "Modern ways to style traditional Korean Hanbok"
+    title: "Elegant Silk Saree Styling",
+    creator: "@TraditionalChic",
+    views: "3.2M",
+    thumbnail: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400&h=600&fit=crop",
+    url: "https://www.tiktok.com/@traditionalchic",
+    description: "How to style silk sarees for modern occasions"
   },
   {
     id: 2,
-    title: "Silk Saree Draping Tutorial",
-    creator: "@IndianCouture",
-    views: "1.8M",
-    thumbnail: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400&h=600&fit=crop",
-    url: "https://www.tiktok.com/@indiancouture",
-    description: "Step-by-step guide to perfect saree draping"
+    title: "Hanbok Dress Collection 2024",
+    creator: "@KoreanElegance",
+    views: "2.8M",
+    thumbnail: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=600&fit=crop",
+    url: "https://www.tiktok.com/@koreanelegance",
+    description: "Modern hanbok designs perfect for any event"
   },
   {
     id: 3,
-    title: "Kimono Fashion Week Highlights",
-    creator: "@TokyoStyleDaily",
-    views: "3.1M",
-    thumbnail: "https://images.unsplash.com/photo-1528164344705-47542687000d?w=400&h=600&fit=crop",
-    url: "https://www.tiktok.com/@tokyostyledaily",
-    description: "Latest kimono trends from Tokyo Fashion Week"
+    title: "Summer Kimono Looks",
+    creator: "@JapanFashionDaily",
+    views: "4.1M",
+    thumbnail: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&h=600&fit=crop",
+    url: "https://www.tiktok.com/@japanfashiondaily",
+    description: "Beautiful kimono styling ideas for summer"
   }
 ];
 
