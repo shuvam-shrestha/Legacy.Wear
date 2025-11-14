@@ -8,7 +8,7 @@ import { useCart } from '@/contexts/CartContext';
 import { ShoppingCart, Heart, ArrowLeft, Sparkles } from 'lucide-react';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
@@ -25,6 +25,8 @@ const ProductDetail = () => {
   const [selectedMood, setSelectedMood] = useState('confident');
   const [visualizedImage, setVisualizedImage] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [aiDescription, setAiDescription] = useState('');
+  const [isLoadingDescription, setIsLoadingDescription] = useState(false);
 
   if (!product) {
     return (
@@ -44,6 +46,93 @@ const ProductDetail = () => {
   const relatedProducts = allProducts
     .filter(p => p.country === product.country && p.id !== product.id)
     .slice(0, 4);
+
+  // Load AI description on mount
+  useEffect(() => {
+    const generateDescription = async () => {
+      setIsLoadingDescription(true);
+      setAiDescription('');
+      
+      try {
+        // Get user preferences from localStorage (from AI Style Quiz)
+        const storedAnswers = localStorage.getItem('styleQuizAnswers');
+        const userPreferences = storedAnswers ? JSON.parse(storedAnswers) : null;
+
+        const response = await fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/generate-product-description`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+            },
+            body: JSON.stringify({
+              productName: product.name,
+              productCountry: product.country,
+              productCategory: product.category,
+              userPreferences,
+            }),
+          }
+        );
+
+        if (!response.ok || !response.body) {
+          throw new Error('Failed to generate description');
+        }
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let textBuffer = '';
+        let streamDone = false;
+        let fullText = '';
+
+        while (!streamDone) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          textBuffer += decoder.decode(value, { stream: true });
+
+          let newlineIndex: number;
+          while ((newlineIndex = textBuffer.indexOf('\n')) !== -1) {
+            let line = textBuffer.slice(0, newlineIndex);
+            textBuffer = textBuffer.slice(newlineIndex + 1);
+
+            if (line.endsWith('\r')) line = line.slice(0, -1);
+            if (line.startsWith(':') || line.trim() === '') continue;
+            if (!line.startsWith('data: ')) continue;
+
+            const jsonStr = line.slice(6).trim();
+            if (jsonStr === '[DONE]') {
+              streamDone = true;
+              break;
+            }
+
+            try {
+              const parsed = JSON.parse(jsonStr);
+              const content = parsed.choices?.[0]?.delta?.content as string | undefined;
+              if (content) {
+                fullText += content;
+                // Split into words and stream word by word with 1ms delay
+                const words = content.split(' ');
+                for (const word of words) {
+                  await new Promise(resolve => setTimeout(resolve, 1));
+                  setAiDescription(prev => prev + (prev ? ' ' : '') + word);
+                }
+              }
+            } catch {
+              textBuffer = line + '\n' + textBuffer;
+              break;
+            }
+          }
+        }
+      } catch (error) {
+        console.error('Error generating description:', error);
+        setAiDescription(product.description); // Fallback to original description
+      } finally {
+        setIsLoadingDescription(false);
+      }
+    };
+
+    generateDescription();
+  }, [product]);
 
   const convertImageToBase64 = async (imageSrc: string): Promise<string> => {
     return new Promise((resolve, reject) => {
@@ -237,9 +326,14 @@ const ProductDetail = () => {
               <p className="text-3xl font-bold text-primary mb-6">
                 ${product.price}
               </p>
-              <p className="text-lg text-muted-foreground mb-8">
-                {product.description}
-              </p>
+              <div className="mb-8">
+                <p className="text-lg text-muted-foreground min-h-[4rem]">
+                  {isLoadingDescription && !aiDescription && (
+                    <span className="inline-block animate-pulse">Generating personalized description...</span>
+                  )}
+                  {aiDescription || product.description}
+                </p>
+              </div>
 
               <div className="space-y-3 mb-8">
                 <div className="flex items-center gap-2">
