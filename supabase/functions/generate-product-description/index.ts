@@ -18,14 +18,14 @@ serve(async (req) => {
       throw new Error('LOVABLE_API_KEY is not configured');
     }
 
-    const systemPrompt = `You are a fashion expert specializing in cultural and traditional clothing. Generate a compelling, personalized product description that resonates with the user's preferences. Keep it concise but engaging, around 100-150 words.`;
+    const systemPrompt = `You are a fashion expert specializing in cultural and traditional clothing. Generate a compelling, personalized product description that is EXACTLY 2 lines or less (maximum 30-40 words). Be concise, impactful, and engaging.`;
     
-    const userPrompt = `Create a product description for "${productName}" - a ${productCategory} from ${productCountry}.
+    const userPrompt = `Create a SHORT product description for "${productName}" - a ${productCategory} from ${productCountry}.
 
 User's style preferences:
 ${userPreferences ? JSON.stringify(userPreferences, null, 2) : 'No specific preferences provided'}
 
-Focus on how this product aligns with their style preferences. Highlight cultural significance, craftsmanship, and how it will make them feel. Be persuasive and personal.`;
+CRITICAL: Keep it to 2 lines maximum (30-40 words total). Focus on the most compelling aspects that align with their preferences.`;
 
     const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
       method: 'POST',
