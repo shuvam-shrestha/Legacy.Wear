@@ -31,7 +31,20 @@ import koreaModernHanbok from '@/assets/products/korea-modern-hanbok.jpg';
 import koreaJeogori from '@/assets/products/korea-jeogori.jpg';
 import koreaDurumagi from '@/assets/products/korea-durumagi.jpg';
 
-export const allProducts = [
+export interface Product {
+  id: number;
+  name: string;
+  country: string;
+  price: number;
+  image: string;
+  badge: string;
+  description: string;
+  category: string;
+  gender?: 'men' | 'women' | 'unisex';
+  tags?: string[];
+}
+
+export const allProducts: Product[] = [
   // Nepal - Traditional Wear
   {
     id: 1,
@@ -42,6 +55,8 @@ export const allProducts = [
     badge: "Artisan Verified",
     description: "Traditional Nepali men's outfit with handwoven Dhaka fabric topi. Crafted by artisans in Kathmandu.",
     category: "Traditional Wear",
+    gender: "men",
+    tags: ["artisan-verified", "traditional"],
   },
   {
     id: 2,
@@ -52,6 +67,8 @@ export const allProducts = [
     badge: "Fair Trade",
     description: "Elegant Gurung ethnic dress with intricate embroidery. Preserving indigenous Himalayan heritage.",
     category: "Traditional Wear",
+    gender: "women",
+    tags: ["fair-trade", "traditional"],
   },
 
   // Nepal - Casual Wear
@@ -64,6 +81,8 @@ export const allProducts = [
     badge: "Eco-Friendly",
     description: "Luxurious handwoven pashmina from Himalayan goats. Sustainable and incredibly soft.",
     category: "Casual Wear",
+    gender: "unisex",
+    tags: ["eco-friendly", "casual"],
   },
   {
     id: 4,
@@ -74,6 +93,8 @@ export const allProducts = [
     badge: "Eco-Friendly",
     description: "Comfortable kurta made from organic Himalayan hemp. Breathable and sustainable.",
     category: "Casual Wear",
+    gender: "unisex",
+    tags: ["eco-friendly", "casual"],
   },
 
   // Thailand - Traditional Wear
@@ -86,6 +107,8 @@ export const allProducts = [
     badge: "Artisan Verified",
     description: "Exquisite Thai silk traditional formal wear. Handwoven using ancient royal techniques.",
     category: "Traditional Wear",
+    gender: "women",
+    tags: ["artisan-verified", "traditional"],
   },
   {
     id: 6,
@@ -96,6 +119,8 @@ export const allProducts = [
     badge: "Fair Trade",
     description: "Elegant Thai national dress with golden patterns. Perfect for special occasions.",
     category: "Traditional Wear",
+    gender: "women",
+    tags: ["fair-trade", "traditional"],
   },
 
   // Thailand - Casual Wear
