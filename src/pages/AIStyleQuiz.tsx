@@ -97,7 +97,10 @@ const AIStyleQuiz = () => {
   };
 
   const handleAnswer = (value: string) => {
-    setAnswers({ ...answers, [currentQuestion.id]: value });
+    const newAnswers = { ...answers, [currentQuestion.id]: value };
+    setAnswers(newAnswers);
+    // Save to localStorage for use in product details
+    localStorage.setItem('styleQuizAnswers', JSON.stringify(newAnswers));
   };
 
   if (recommendations.length > 0) {
