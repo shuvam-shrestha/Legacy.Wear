@@ -42,6 +42,8 @@ export interface Product {
   category: string;
   gender?: 'men' | 'women' | 'unisex';
   tags?: string[];
+  sizes?: string[];
+  images?: string[];
 }
 
 export const allProducts: Product[] = [
@@ -57,6 +59,8 @@ export const allProducts: Product[] = [
     category: "Traditional Wear",
     gender: "men",
     tags: ["artisan-verified", "traditional"],
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    images: [nepalDhakaTopi, nepalDhakaTopi, nepalDhakaTopi, nepalDhakaTopi],
   },
   {
     id: 2,
@@ -69,6 +73,8 @@ export const allProducts: Product[] = [
     category: "Traditional Wear",
     gender: "women",
     tags: ["fair-trade", "traditional"],
+    sizes: ["XS", "S", "M", "L", "XL"],
+    images: [nepalGurungDress, nepalGurungDress, nepalGurungDress, nepalGurungDress],
   },
 
   // Nepal - Casual Wear
@@ -83,6 +89,8 @@ export const allProducts: Product[] = [
     category: "Casual Wear",
     gender: "unisex",
     tags: ["eco-friendly", "casual"],
+    sizes: ["One Size"],
+    images: [nepalPashmina, nepalPashmina, nepalPashmina, nepalPashmina],
   },
   {
     id: 4,
@@ -95,6 +103,8 @@ export const allProducts: Product[] = [
     category: "Casual Wear",
     gender: "unisex",
     tags: ["eco-friendly", "casual"],
+    sizes: ["S", "M", "L", "XL"],
+    images: [nepalHempKurta, nepalHempKurta, nepalHempKurta, nepalHempKurta],
   },
 
   // Thailand - Traditional Wear
