@@ -27,6 +27,8 @@ const ProductDetail = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [aiDescription, setAiDescription] = useState('');
   const [isLoadingDescription, setIsLoadingDescription] = useState(false);
+  const [selectedSize, setSelectedSize] = useState('');
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   if (!product) {
     return (
@@ -46,6 +48,13 @@ const ProductDetail = () => {
   const relatedProducts = allProducts
     .filter(p => p.country === product.country && p.id !== product.id)
     .slice(0, 4);
+
+  // Set default size when product loads
+  useEffect(() => {
+    if (product.sizes && product.sizes.length > 0 && !selectedSize) {
+      setSelectedSize(product.sizes[0]);
+    }
+  }, [product, selectedSize]);
 
   // Load AI description on mount
   useEffect(() => {
