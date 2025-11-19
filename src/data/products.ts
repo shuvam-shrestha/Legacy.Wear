@@ -44,6 +44,10 @@ export interface Product {
   tags?: string[];
   sizes?: string[];
   images?: string[];
+  colorVariants?: {
+    color: string;
+    image: string;
+  }[];
 }
 
 export const allProducts: Product[] = [
