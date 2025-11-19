@@ -73,19 +73,6 @@ const SustainabilityPage = () => {
                 </Badge>
               </div>
             </div>
-            
-            {/* YouTube Video */}
-            <div className="max-w-5xl mx-auto">
-              <div className="relative aspect-video rounded-2xl overflow-hidden shadow-card">
-                <iframe
-                  className="w-full h-full"
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&loop=1&playlist=dQw4w9WgXcQ&controls=0&modestbranding=1"
-                  title="Sustainability Video"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
-            </div>
           </div>
         </section>
 
