@@ -5,12 +5,13 @@ import { allProducts } from '@/data/products';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useCart } from '@/contexts/CartContext';
-import { ShoppingCart, Heart, ArrowLeft, Sparkles } from 'lucide-react';
+import { ShoppingCart, ArrowLeft, Sparkles, Package, Truck } from 'lucide-react';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { Card, CardContent } from '@/components/ui/card';
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -20,7 +21,6 @@ const ProductDetail = () => {
   
   const product = allProducts.find(p => p.id === Number(id));
   
-  const [selectedColor, setSelectedColor] = useState('original');
   const [selectedSkinTone, setSelectedSkinTone] = useState('medium');
   const [selectedMood, setSelectedMood] = useState('confident');
   const [visualizedImage, setVisualizedImage] = useState<string | null>(null);
@@ -29,6 +29,8 @@ const ProductDetail = () => {
   const [isLoadingDescription, setIsLoadingDescription] = useState(false);
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [selectedColor, setSelectedColor] = useState('');
+  const [currentMainImage, setCurrentMainImage] = useState('');
 
   if (!product) {
     return (
@@ -49,12 +51,17 @@ const ProductDetail = () => {
     .filter(p => p.country === product.country && p.id !== product.id)
     .slice(0, 4);
 
-  // Set default size when product loads
   useEffect(() => {
-    if (product.sizes && product.sizes.length > 0 && !selectedSize) {
-      setSelectedSize(product.sizes[0]);
+    if (product) {
+      setCurrentMainImage(product.image);
+      if (product.sizes && product.sizes.length > 0) {
+        setSelectedSize(product.sizes[0]);
+      }
+      if (product.colorVariants && product.colorVariants.length > 0) {
+        setSelectedColor(product.colorVariants[0].color);
+      }
     }
-  }, [product, selectedSize]);
+  }, [product]);
 
   // Load AI description on mount
   useEffect(() => {
@@ -204,13 +211,11 @@ const ProductDetail = () => {
     
     setIsGenerating(true);
     try {
-      // Convert image to base64
-      const base64Image = await convertImageToBase64(product.image);
+      const base64Image = await convertImageToBase64(currentMainImage);
       
       const { data, error } = await supabase.functions.invoke('visualize-outfit', {
         body: {
           productImage: base64Image,
-          color: selectedColor,
           skinTone: selectedSkinTone,
           mood: selectedMood
         }
@@ -234,6 +239,16 @@ const ProductDetail = () => {
       });
     } finally {
       setIsGenerating(false);
+    }
+  };
+
+  const handleColorChange = (color: string) => {
+    setSelectedColor(color);
+    const variant = product?.colorVariants?.find(v => v.color === color);
+    if (variant) {
+      setCurrentMainImage(variant.image);
+      setSelectedImageIndex(-1);
+      setVisualizedImage(null);
     }
   };
 
@@ -264,7 +279,7 @@ const ProductDetail = () => {
               {/* Main Image */}
               <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-hover">
                 <img
-                  src={visualizedImage || (product.images && product.images[selectedImageIndex]) || product.image}
+                  src={visualizedImage || (selectedImageIndex >= 0 && product.images?.[selectedImageIndex]) || currentMainImage}
                   alt={product.name}
                   className="w-full h-full object-cover"
                 />
@@ -276,9 +291,12 @@ const ProductDetail = () => {
                   {product.images.slice(0, 4).map((img, index) => (
                     <button
                       key={index}
-                      onClick={() => setSelectedImageIndex(index)}
+                      onClick={() => {
+                        setSelectedImageIndex(index);
+                        setVisualizedImage(null);
+                      }}
                       className={`relative aspect-[3/4] rounded-lg overflow-hidden cursor-pointer transition-all ${
-                        selectedImageIndex === index 
+                        selectedImageIndex === index
                           ? 'ring-2 ring-primary shadow-lg' 
                           : 'opacity-70 hover:opacity-100'
                       }`}
@@ -315,6 +333,16 @@ const ProductDetail = () => {
                 </p>
               </div>
 
+              <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
+                <Package className="h-4 w-4" />
+                <span>Free shipping on orders over $100</span>
+              </div>
+
+              <div className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
+                <Truck className="h-4 w-4" />
+                <span>Estimated delivery: 5-7 business days</span>
+              </div>
+
               {/* Size Selection */}
               {product.sizes && product.sizes.length > 0 && (
                 <div className="mb-6">
@@ -337,27 +365,39 @@ const ProductDetail = () => {
                 </div>
               )}
 
-              <div className="space-y-3 mb-8">
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-accent rounded-full" />
-                  <span className="text-sm">Authenticity Guaranteed</span>
+              {/* Color Selection */}
+              {product.colorVariants && product.colorVariants.length > 0 && (
+                <div className="mb-8">
+                  <Label className="text-sm font-medium mb-3 block">Available Colors</Label>
+                  <div className="flex gap-3">
+                    {product.colorVariants.map((variant) => (
+                      <button
+                        key={variant.color}
+                        onClick={() => handleColorChange(variant.color)}
+                        className="relative group"
+                      >
+                        <div className={`w-16 h-16 rounded-lg border-2 overflow-hidden transition-all ${
+                          selectedColor === variant.color
+                            ? "border-primary ring-2 ring-primary/30 scale-110"
+                            : "border-input hover:border-primary/50"
+                        }`}>
+                          <img
+                            src={variant.image}
+                            alt={variant.color}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+                          {variant.color}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-accent rounded-full" />
-                  <span className="text-sm">Handcrafted by Master Artisans</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-accent rounded-full" />
-                  <span className="text-sm">Free Worldwide Shipping</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-accent rounded-full" />
-                  <span className="text-sm">30-Day Return Policy</span>
-                </div>
-              </div>
+              )}
 
               {/* Action Buttons */}
-              <div className="flex gap-4 mb-8">
+              <div className="flex gap-3 mb-8">
                 <Button
                   size="lg"
                   className="flex-1"
@@ -368,14 +408,10 @@ const ProductDetail = () => {
                 </Button>
                 <Button 
                   size="lg" 
-                  className="flex-1"
-                  variant="hero"
+                  className="flex-1 bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-700 hover:to-teal-700"
                   onClick={handleBuyNow}
                 >
                   Buy Now
-                </Button>
-                <Button size="lg" variant="outline">
-                  <Heart className="h-5 w-5" />
                 </Button>
               </div>
 
