@@ -237,6 +237,13 @@ const ProductDetail = () => {
     }
   };
 
+  const handleBuyNow = () => {
+    if (product) {
+      addToCart(product);
+      navigate('/checkout');
+    }
+  };
+
   return (
     <div className="min-h-screen">
       <Navigation />
@@ -252,110 +259,39 @@ const ProductDetail = () => {
           </Button>
 
           <div className="grid md:grid-cols-2 gap-12 mb-16">
-            {/* Image */}
+            {/* Image Gallery */}
             <div className="space-y-4">
+              {/* Main Image */}
               <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-hover">
                 <img
-                  src={visualizedImage || product.image}
+                  src={visualizedImage || (product.images && product.images[selectedImageIndex]) || product.image}
                   alt={product.name}
                   className="w-full h-full object-cover"
                 />
               </div>
               
-              {/* Personalization Controls */}
-              <div className="bg-card rounded-xl p-6 shadow-card space-y-6">
-                <div className="flex items-center gap-2 mb-4">
-                  <Sparkles className="h-5 w-5 text-primary" />
-                  <h3 className="font-semibold text-lg">AI Personalization</h3>
+              {/* Thumbnail Images */}
+              {product.images && product.images.length > 1 && (
+                <div className="grid grid-cols-4 gap-3">
+                  {product.images.slice(0, 4).map((img, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setSelectedImageIndex(index)}
+                      className={`relative aspect-[3/4] rounded-lg overflow-hidden cursor-pointer transition-all ${
+                        selectedImageIndex === index 
+                          ? 'ring-2 ring-primary shadow-lg' 
+                          : 'opacity-70 hover:opacity-100'
+                      }`}
+                    >
+                      <img
+                        src={img}
+                        alt={`${product.name} view ${index + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </button>
+                  ))}
                 </div>
-
-                {/* Color Selection */}
-                <div className="space-y-3">
-                  <Label className="text-sm font-medium">Dress Color</Label>
-                  <RadioGroup value={selectedColor} onValueChange={setSelectedColor}>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="original" id="original" />
-                      <Label htmlFor="original" className="cursor-pointer">Original</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="red" id="red" />
-                      <Label htmlFor="red" className="cursor-pointer">Red</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="blue" id="blue" />
-                      <Label htmlFor="blue" className="cursor-pointer">Blue</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="green" id="green" />
-                      <Label htmlFor="green" className="cursor-pointer">Green</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="gold" id="gold" />
-                      <Label htmlFor="gold" className="cursor-pointer">Gold</Label>
-                    </div>
-                  </RadioGroup>
-                </div>
-
-                {/* Skin Tone Selection */}
-                <div className="space-y-3">
-                  <Label className="text-sm font-medium">Skin Tone</Label>
-                  <RadioGroup value={selectedSkinTone} onValueChange={setSelectedSkinTone}>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="fair" id="fair" />
-                      <Label htmlFor="fair" className="cursor-pointer">Fair</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="medium" id="medium" />
-                      <Label htmlFor="medium" className="cursor-pointer">Medium</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="olive" id="olive" />
-                      <Label htmlFor="olive" className="cursor-pointer">Olive</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="tan" id="tan" />
-                      <Label htmlFor="tan" className="cursor-pointer">Tan</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="deep" id="deep" />
-                      <Label htmlFor="deep" className="cursor-pointer">Deep</Label>
-                    </div>
-                  </RadioGroup>
-                </div>
-
-                {/* Mood Selection */}
-                <div className="space-y-3">
-                  <Label className="text-sm font-medium">Mood</Label>
-                  <RadioGroup value={selectedMood} onValueChange={setSelectedMood}>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="confident" id="confident" />
-                      <Label htmlFor="confident" className="cursor-pointer">Confident</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="elegant" id="elegant" />
-                      <Label htmlFor="elegant" className="cursor-pointer">Elegant</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="joyful" id="joyful" />
-                      <Label htmlFor="joyful" className="cursor-pointer">Joyful</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="serene" id="serene" />
-                      <Label htmlFor="serene" className="cursor-pointer">Serene</Label>
-                    </div>
-                  </RadioGroup>
-                </div>
-
-                <Button 
-                  onClick={handleVisualize} 
-                  disabled={isGenerating}
-                  className="w-full"
-                  variant="hero"
-                >
-                  <Sparkles className="mr-2 h-4 w-4" />
-                  {isGenerating ? 'Generating...' : 'Visualize on Model'}
-                </Button>
-              </div>
+              )}
             </div>
 
             {/* Details */}
@@ -379,6 +315,28 @@ const ProductDetail = () => {
                 </p>
               </div>
 
+              {/* Size Selection */}
+              {product.sizes && product.sizes.length > 0 && (
+                <div className="mb-6">
+                  <Label className="text-sm font-medium mb-3 block">Select Size</Label>
+                  <div className="flex gap-2 flex-wrap">
+                    {product.sizes.map((size) => (
+                      <button
+                        key={size}
+                        onClick={() => setSelectedSize(size)}
+                        className={`px-4 py-2 border rounded-lg transition-all ${
+                          selectedSize === size
+                            ? 'bg-primary text-primary-foreground border-primary'
+                            : 'bg-background border-border hover:border-primary'
+                        }`}
+                      >
+                        {size}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               <div className="space-y-3 mb-8">
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 bg-accent rounded-full" />
@@ -398,7 +356,8 @@ const ProductDetail = () => {
                 </div>
               </div>
 
-              <div className="flex gap-4">
+              {/* Action Buttons */}
+              <div className="flex gap-4 mb-8">
                 <Button
                   size="lg"
                   className="flex-1"
@@ -407,8 +366,113 @@ const ProductDetail = () => {
                   <ShoppingCart className="mr-2 h-5 w-5" />
                   Add to Cart
                 </Button>
+                <Button 
+                  size="lg" 
+                  className="flex-1"
+                  variant="hero"
+                  onClick={handleBuyNow}
+                >
+                  Buy Now
+                </Button>
                 <Button size="lg" variant="outline">
                   <Heart className="h-5 w-5" />
+                </Button>
+              </div>
+
+              {/* AI Personalization - Horizontal Layout */}
+              <div className="bg-card rounded-xl p-6 shadow-card">
+                <div className="flex items-center gap-2 mb-6">
+                  <Sparkles className="h-5 w-5 text-primary" />
+                  <h3 className="font-semibold text-lg">AI Personalization</h3>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                  {/* Color Selection */}
+                  <div className="space-y-3">
+                    <Label className="text-sm font-medium">Dress Color</Label>
+                    <RadioGroup value={selectedColor} onValueChange={setSelectedColor}>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="original" id="original" />
+                        <Label htmlFor="original" className="cursor-pointer">Original</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="red" id="red" />
+                        <Label htmlFor="red" className="cursor-pointer">Red</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="blue" id="blue" />
+                        <Label htmlFor="blue" className="cursor-pointer">Blue</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="green" id="green" />
+                        <Label htmlFor="green" className="cursor-pointer">Green</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="gold" id="gold" />
+                        <Label htmlFor="gold" className="cursor-pointer">Gold</Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+
+                  {/* Skin Tone Selection */}
+                  <div className="space-y-3">
+                    <Label className="text-sm font-medium">Skin Tone</Label>
+                    <RadioGroup value={selectedSkinTone} onValueChange={setSelectedSkinTone}>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="fair" id="fair" />
+                        <Label htmlFor="fair" className="cursor-pointer">Fair</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="medium" id="medium" />
+                        <Label htmlFor="medium" className="cursor-pointer">Medium</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="olive" id="olive" />
+                        <Label htmlFor="olive" className="cursor-pointer">Olive</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="tan" id="tan" />
+                        <Label htmlFor="tan" className="cursor-pointer">Tan</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="deep" id="deep" />
+                        <Label htmlFor="deep" className="cursor-pointer">Deep</Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+
+                  {/* Mood Selection */}
+                  <div className="space-y-3">
+                    <Label className="text-sm font-medium">Mood</Label>
+                    <RadioGroup value={selectedMood} onValueChange={setSelectedMood}>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="confident" id="confident" />
+                        <Label htmlFor="confident" className="cursor-pointer">Confident</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="elegant" id="elegant" />
+                        <Label htmlFor="elegant" className="cursor-pointer">Elegant</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="joyful" id="joyful" />
+                        <Label htmlFor="joyful" className="cursor-pointer">Joyful</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="serene" id="serene" />
+                        <Label htmlFor="serene" className="cursor-pointer">Serene</Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+                </div>
+
+                <Button 
+                  onClick={handleVisualize} 
+                  disabled={isGenerating}
+                  className="w-full"
+                  variant="hero"
+                >
+                  <Sparkles className="mr-2 h-4 w-4" />
+                  {isGenerating ? 'Generating...' : 'Visualize on Model'}
                 </Button>
               </div>
             </div>
