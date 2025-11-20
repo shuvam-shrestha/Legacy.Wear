@@ -176,45 +176,6 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Product Locations Section */}
-            <div className="mt-16">
-              <Card className="shadow-card">
-                <CardContent className="p-8">
-                  <h2 className="font-serif text-3xl font-bold mb-6 text-center">
-                    Our Products Available In
-                  </h2>
-                  <div className="grid md:grid-cols-3 gap-6">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <MapPin className="h-8 w-8 text-primary" />
-                      </div>
-                      <h3 className="font-semibold text-lg mb-2">Asia Pacific</h3>
-                      <p className="text-sm text-muted-foreground">
-                        India, Japan, China, Korea, Thailand, Bangladesh, Nepal
-                      </p>
-                    </div>
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <MapPin className="h-8 w-8 text-secondary" />
-                      </div>
-                      <h3 className="font-semibold text-lg mb-2">Africa</h3>
-                      <p className="text-sm text-muted-foreground">
-                        Morocco, Egypt, Kenya, South Africa, Ghana
-                      </p>
-                    </div>
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <MapPin className="h-8 w-8 text-accent" />
-                      </div>
-                      <h3 className="font-semibold text-lg mb-2">Europe & Americas</h3>
-                      <p className="text-sm text-muted-foreground">
-                        Russia, USA, Canada, UK, Germany, France
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
           </div>
         </section>
       </main>
