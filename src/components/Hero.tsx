@@ -1,20 +1,39 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Sparkles } from "lucide-react";
-import heroImage from "@/assets/hero-cultural-fashion.jpg";
+import { useState, useEffect } from "react";
+import heroImage1 from "@/assets/hero-cultural-fashion.jpg";
+import heroImage2 from "@/assets/hero-traditional-1.jpg";
+import heroImage3 from "@/assets/hero-traditional-2.jpg";
+import heroImage4 from "@/assets/hero-traditional-3.jpg";
 
 const Hero = () => {
   const navigate = useNavigate();
+  const heroImages = [heroImage1, heroImage2, heroImage3, heroImage4];
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
+    }, 1500);
+
+    return () => clearInterval(interval);
+  }, []);
   
   return (
     <section className="relative h-[90vh] flex items-center overflow-hidden">
-      {/* Background Image */}
+      {/* Background Image Carousel */}
       <div className="absolute inset-0">
-        <img
-          src={heroImage}
-          alt="Cultural fashion collection"
-          className="w-full h-full object-cover"
-        />
+        {heroImages.map((image, index) => (
+          <img
+            key={index}
+            src={image}
+            alt={`Cultural fashion collection ${index + 1}`}
+            className={`absolute w-full h-full object-cover transition-opacity duration-1000 ${
+              index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
+        ))}
         <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/70 to-transparent" />
       </div>
 
