@@ -46,6 +46,12 @@ const Checkout = () => {
     clearCart();
     setProcessing(false);
     setShowSuccessDialog(true);
+    
+    // Show success toast
+    toast({
+      title: "Purchase Successful! 🎉",
+      description: "Your order has been placed successfully. You will receive a confirmation email shortly.",
+    });
   };
 
   const handleSuccessDialogClose = () => {
